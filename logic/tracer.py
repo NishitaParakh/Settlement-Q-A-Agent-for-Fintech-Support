@@ -13,25 +13,35 @@ def load_data():
     return gateway, bank, ledger, settlements
 
 
+def clean_records(df):
+    # Convert NaN values to None so they can be returned as JSON
+    df = df.astype(object).where(pd.notna(df), None)
+    return df.to_dict("records")
+
+
 def find_transaction(transaction_id):
     gateway, bank, ledger, settlements = load_data()
 
-    gateway_record = gateway[gateway["transaction_id"] == transaction_id]
-    bank_record = bank[bank["transaction_id"] == transaction_id]
-    ledger_record = ledger[ledger["transaction_id"] == transaction_id]
+    gateway_record = gateway[
+        gateway["transaction_id"] == transaction_id
+    ]
+
+    bank_record = bank[
+        bank["transaction_id"] == transaction_id
+    ]
+
+    ledger_record = ledger[
+        ledger["transaction_id"] == transaction_id
+    ]
+
     settlement_record = settlements[
         settlements["transaction_id"] == transaction_id
     ]
 
     return {
         "transaction_id": transaction_id,
-        "gateway": gateway_record.to_dict("records"),
-        "bank": bank_record.to_dict("records"),
-        "ledger": ledger_record.to_dict("records"),
-        "settlement": settlement_record.to_dict("records")
+        "gateway": clean_records(gateway_record),
+        "bank": clean_records(bank_record),
+        "ledger": clean_records(ledger_record),
+        "settlement": clean_records(settlement_record)
     }
-
-
-if __name__ == "__main__":
-    result = find_transaction("TXN1001")
-    print(result)
