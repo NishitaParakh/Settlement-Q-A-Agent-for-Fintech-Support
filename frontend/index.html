@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ClearSettle — Settlement Intelligence</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================================
+         TOP NAVIGATION
+    ========================================== -->
+
+    <header class="top-nav">
+
+        <div class="brand">
+            <div class="brand-mark">CS</div>
+
+            <div>
+                <div class="brand-name">ClearSettle</div>
+                <div class="brand-subtitle">
+                    Settlement Intelligence
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            Systems Operational
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         MAIN PAGE
+    ========================================== -->
+
+    <main class="page-container">
+
+        <!-- =====================================
+             HERO / INTRO
+        ====================================== -->
+
+        <section class="hero-section">
+
+            <div>
+                <p class="eyebrow">
+                    FINTECH SETTLEMENT SUPPORT
+                </p>
+
+                <h1>
+                    Transaction Investigation
+                </h1>
+
+                <p class="hero-description">
+                    Trace transactions across payment systems,
+                    understand settlement issues, and get
+                    clear recommended actions.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             SMART TRANSACTION SEARCH
+        ====================================== -->
+
+        <section class="card search-card">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-number">01</span>
+
+                    <h2>
+                        Smart Transaction Search
+                    </h2>
+
+                    <p>
+                        Search by transaction ID, date,
+                        month, or settlement status.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="search-container">
+
+                <div class="search-input-wrapper">
+
+                    <label for="transactionSearch">
+                        Transaction ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="transactionSearch"
+                        placeholder="e.g. TXN-88213-GT"
+                    >
+
+                </div>
+
+
+                <button
+                    id="searchButton"
+                    class="primary-button"
+                    type="button"
+                >
+                    Search Transaction
+                </button>
+
+            </div>
+
+
+            <div class="filter-row">
+
+                <button
+                    class="filter-button active"
+                    data-filter="all"
+                >
+                    All
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-filter="today"
+                >
+                    Today
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-filter="month"
+                >
+                    This Month
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-filter="success"
+                >
+                    Success
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-filter="failed"
+                >
+                    Failed
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-filter="pending"
+                >
+                    Pending
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             TRANSACTION INFORMATION
+        ====================================== -->
+
+        <section class="card transaction-card">
+
+            <div class="card-header">
+
+                <div>
+                    <span class="section-number">02</span>
+
+                    <h2>
+                        Transaction Information
+                    </h2>
+                </div>
+
+                <span
+                    id="transactionStatus"
+                    class="status-badge"
+                >
+                    Awaiting Search
+                </span>
+
+            </div>
+
+
+            <div class="transaction-grid">
+
+                <div class="info-item">
+                    <span class="info-label">
+                        Transaction ID
+                    </span>
+
+                    <span
+                        id="displayTransactionId"
+                        class="info-value mono"
+                    >
+                        —
+                    </span>
+                </div>
+
+
+                <div class="info-item">
+                    <span class="info-label">
+                        Amount
+                    </span>
+
+                    <span
+                        id="displayAmount"
+                        class="info-value"
+                    >
+                        —
+                    </span>
+                </div>
+
+
+                <div class="info-item">
+                    <span class="info-label">
+                        Date & Time
+                    </span>
+
+                    <span
+                        id="displayDate"
+                        class="info-value"
+                    >
+                        —
+                    </span>
+                </div>
+
+
+                <div class="info-item">
+                    <span class="info-label">
+                        Settlement Status
+                    </span>
+
+                    <span
+                        id="displaySettlementStatus"
+                        class="info-value"
+                    >
+                        —
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             AI EXPLANATION
+        ====================================== -->
+
+        <section class="card explanation-card">
+
+            <div class="card-header">
+
+                <div>
+                    <span class="section-number">03</span>
+
+                    <h2>
+                        AI Plain-English Explanation
+                    </h2>
+                </div>
+
+                <span class="ai-badge">
+                    AI
+                </span>
+
+            </div>
+
+
+            <div
+                id="aiExplanation"
+                class="explanation-box"
+            >
+                Search for a transaction to generate
+                a plain-English explanation.
+            </div>
+
+
+            <div class="analysis-grid">
+
+                <div class="confidence-box">
+
+                    <span class="info-label">
+                        Confidence
+                    </span>
+
+                    <div class="confidence-value">
+                        <span id="confidenceValue">
+                            —
+                        </span>
+                    </div>
+
+                    <div class="confidence-bar">
+
+                        <div
+                            id="confidenceBar"
+                            class="confidence-fill"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="exception-box">
+
+                    <span class="info-label">
+                        Exception Detection
+                    </span>
+
+                    <p id="exceptionMessage">
+                        No transaction analyzed yet.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             TRANSACTION TIMELINE
+        ====================================== -->
+
+        <section class="card timeline-card">
+
+            <div class="card-header">
+
+                <div>
+                    <span class="section-number">04</span>
+
+                    <h2>
+                        Transaction Timeline
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div
+                id="timeline"
+                class="timeline"
+            >
+
+                <div class="timeline-empty">
+                    Search a transaction to view
+                    its complete timeline.
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             THREE SYSTEM TRACE
+        ====================================== -->
+
+        <section class="card trace-card">
+
+            <div class="card-header">
+
+                <div>
+                    <span class="section-number">05</span>
+
+                    <h2>
+                        Three-System Transaction Trace
+                    </h2>
+
+                    <p>
+                        Follow the transaction across
+                        Gateway, Bank, and Ledger.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="system-tabs">
+
+                <button
+                    class="system-tab active"
+                    data-system="gateway"
+                >
+                    Gateway
+                </button>
+
+                <button
+                    class="system-tab"
+                    data-system="bank"
+                >
+                    Bank
+                </button>
+
+                <button
+                    class="system-tab"
+                    data-system="ledger"
+                >
+                    Ledger
+                </button>
+
+            </div>
+
+
+            <div
+                id="systemTrace"
+                class="system-trace"
+            >
+
+                <div class="trace-placeholder">
+                    Search for a transaction to
+                    inspect the three-system trace.
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             SETTLEMENT DIAGNOSIS
+        ====================================== -->
+
+        <section class="card diagnosis-card">
+
+            <div class="card-header">
+
+                <div>
+                    <span class="section-number">06</span>
+
+                    <h2>
+                        Settlement Diagnosis
+                    </h2>
+
+                    <p>
+                        Identify where and why settlement
+                        failed or was delayed.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div
+                id="diagnosisResult"
+                class="diagnosis-result"
+            >
+
+                <div class="diagnosis-placeholder">
+                    No diagnosis available yet.
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             LIVE Q&A
+        ====================================== -->
+
+        <section class="card qa-card">
+
+            <div class="card-header">
+
+                <div>
+                    <span class="section-number">07</span>
+
+                    <h2>
+                        Live Q&A
+                    </h2>
+
+                    <p>
+                        Ask questions about the investigated
+                        transaction.
+                    </p>
+                </div>
+
+                <span class="ai-badge">
+                    AI
+                </span>
+
+            </div>
+
+
+            <div
+                id="qaMessages"
+                class="qa-messages"
+            >
+
+                <div class="qa-message assistant">
+                    <div class="message-label">
+                        ClearSettle AI
+                    </div>
+
+                    <div class="message-text">
+                        Search for a transaction first,
+                        then ask me anything about its
+                        settlement journey.
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="qa-input-container">
+
+                <input
+                    type="text"
+                    id="qaInput"
+                    placeholder="Ask about this transaction..."
+                >
+
+                <button
+                    id="qaSendButton"
+                    class="primary-button"
+                    type="button"
+                >
+                    Ask
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             RECOMMENDED ACTION
+        ====================================== -->
+
+        <section class="card recommendation-card">
+
+            <div class="card-header">
+
+                <div>
+                    <span class="section-number">08</span>
+
+                    <h2>
+                        Recommended Action
+                    </h2>
+
+                    <p>
+                        Next best action based on the
+                        transaction investigation.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div
+                id="recommendation"
+                class="recommendation-box"
+            >
+                Search for a transaction to receive
+                a recommended action.
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script src="script.js"></script>
+
+</body>
+</html>
