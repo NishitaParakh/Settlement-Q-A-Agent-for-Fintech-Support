@@ -1,32 +1,38 @@
-from flask import Flask
-from flask_cors import CORS
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-from routes.investigate import investigate_bp
-from routes.search import search_bp
+from routes.investigate import router as investigate_router
+from routes.search import router as search_router
+
+app = FastAPI(
+    title="SETTLEVITTA API",
+    description="Settlement investigation and transaction search API",
+    version="1.0.0"
+)
+
+# Allow frontend to communicate with backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Existing routes
+app.include_router(investigate_router)
+app.include_router(search_router)
 
 
-app = Flask(__name__)
-
-CORS(app)
-
-app.register_blueprint(investigate_bp)
-app.register_blueprint(search_bp)
-
-
-@app.route("/")
+@app.get("/")
 def home():
     return {
-        "message": "Code Blues Settlement Q&A Agent API is running"
+        "message": "SETTLEVITTA backend is running"
     }
 
 
-@app.route("/health")
+@app.get("/health")
 def health():
     return {
-        "status": "ok",
-        "service": "Code Blues Backend"
+        "status": "ok"
     }
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
