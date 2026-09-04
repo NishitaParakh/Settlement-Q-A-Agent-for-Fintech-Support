@@ -45,27 +45,3 @@ If the records conflict or information is missing, clearly say that the result i
 """
 
     return prompt
-if __name__ == "__main__":
-    test_data = {
-        "transaction_id": "TXN1005",
-        "gateway": [{"amount": 3000, "status": "SUCCESS"}],
-        "bank": [{"amount": 3000, "status": "SUCCESS"}],
-        "ledger": [{"amount": 2900, "status": "SUCCESS"}],
-        "settlement": [{"amount": 2900, "status": "PROCESSED"}]
-    }
-
-    confidence = {
-        "score": 80,
-        "level": "MEDIUM",
-        "exceptions": [
-            "Amount mismatch: Gateway=3000, Ledger=2900"
-        ]
-    }
-
-    diagnosis = "Amount mismatch detected"
-
-    action = "INVESTIGATE"
-
-    prompt = create_prompt(test_data, diagnosis, confidence, action)
-
-    print(prompt)
