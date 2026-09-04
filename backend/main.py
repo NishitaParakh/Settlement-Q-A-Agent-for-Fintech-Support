@@ -1,24 +1,42 @@
 from fastapi import FastAPI
-from routes.investigate import router as investigate_router
+from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(
-    title="SETTLEVITTA API",
-    description="Settlement investigation and transaction tracing API",
-    version="1.0.0"
+from logic.tracer import find_transaction
+from logic.diagnosis import diagnose
+from logic.confidence import calc_confidence
+from logic.recommendations import recommend_action
+
+app = FastAPI(title="Settlement Q&A Agent")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
-
-app.include_router(investigate_router)
 
 
 @app.get("/")
 def home():
-    return {
-        "message": "SETTLEVITTA backend is running"
-    }
+    return {"message": "Settlement Q&A Agent is running"}
 
 
-@app.get("/health")
-def health():
+@app.get("/investigate/{transaction_id}")
+def investigate(transaction_id: str):
+
+    data = find_transaction(transaction_id)
+
+    diagnosis = diagnose(data)
+
+    confidence = calc_confidence(data)
+
+    action = recommend_action(confidence)
+
     return {
-        "status": "ok"
+        "transaction_id": transaction_id,
+        "diagnosis": diagnosis,
+        "confidence": confidence,
+        "recommended_action": action,
+        "evidence": data
     }
