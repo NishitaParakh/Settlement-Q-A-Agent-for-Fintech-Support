@@ -1,32 +1,24 @@
-from flask import Flask
-from flask_cors import CORS
+from fastapi import FastAPI
+from routes.investigate import router as investigate_router
 
-from routes.investigate import investigate_bp
-from routes.search import search_bp
+app = FastAPI(
+    title="SETTLEVITTA API",
+    description="Settlement investigation and transaction tracing API",
+    version="1.0.0"
+)
 
-
-app = Flask(__name__)
-
-CORS(app)
-
-app.register_blueprint(investigate_bp)
-app.register_blueprint(search_bp)
+app.include_router(investigate_router)
 
 
-@app.route("/")
+@app.get("/")
 def home():
     return {
-        "message": "Code Blues Settlement Q&A Agent API is running"
+        "message": "SETTLEVITTA backend is running"
     }
 
 
-@app.route("/health")
+@app.get("/health")
 def health():
     return {
-        "status": "ok",
-        "service": "Code Blues Backend"
+        "status": "ok"
     }
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
