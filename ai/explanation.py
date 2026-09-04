@@ -6,7 +6,7 @@ sys.path.append(str(Path(__file__).parent.parent))
 import os
 from dotenv import load_dotenv
 from groq import Groq
-from prompts import create_prompt
+from ai.prompts import create_prompt
 
 load_dotenv()
 
