@@ -66,11 +66,3 @@ def diagnose(data):
         return "Settlement is still pending"
 
     return "Unable to determine settlement status"
-
-
-from tracer import find_transaction
-
-data = find_transaction("TXN1006")
-
-print("Diagnosis:")
-print(diagnose(data))
