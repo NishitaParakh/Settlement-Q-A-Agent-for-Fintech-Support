@@ -1,13 +1,12 @@
-import sys
-from pathlib import Path
-
-sys.path.append(str(Path(__file__).parent.parent))
-
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 from groq import Groq
 
-load_dotenv()
+BASE_DIR = Path(__file__).resolve().parent.parent
+ENV_PATH = BASE_DIR / ".env"
+
+load_dotenv(ENV_PATH)
 
 
 def generate_explanation(data, diagnosis, confidence, action):
