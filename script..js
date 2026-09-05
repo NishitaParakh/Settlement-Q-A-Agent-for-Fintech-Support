@@ -342,53 +342,47 @@ let currentSystem = "gateway";
 
 function searchTransaction() {
 
-    const query =
-        searchInput.value.trim().toUpperCase();
+    async function searchTransaction() {
 
+    const query = searchInput.value.trim().toUpperCase();
 
     if (!query) {
-
         alert("Please enter a transaction ID.");
-
         return;
     }
 
+    try {
 
-    const transaction =
-        transactions[query];
-
-
-    if (!transaction) {
-
-        alert(
-            "Transaction not found.\n\nTry:\n" +
-            "TXN-88213-GT\n" +
-            "TXN-44192-BK\n" +
-            "TXN-10983-LD"
+        const response = await fetch(
+            `http://127.0.0.1:8000/investigate/${query}`
         );
 
-        return;
+        if (!response.ok) {
+            throw new Error("Transaction not found");
+        }
+
+        const data = await response.json();
+
+        console.log("BACKEND DATA:", data);
+
+        currentTransaction = data;
+
+        updateTransactionInfo(data);
+        updateExplanation(data);
+        updateTimeline(data);
+        updateSystemTrace(data, currentSystem);
+        updateDiagnosis(data);
+        updateRecommendation(data);
+
+        clearQA();
+
+    } catch (error) {
+
+        console.error("Backend error:", error);
+
+        alert("Could not find transaction or connect to backend.");
     }
-
-
-    currentTransaction = transaction;
-
-    updateTransactionInfo(transaction);
-
-    updateExplanation(transaction);
-
-    updateTimeline(transaction);
-
-    updateSystemTrace(transaction, currentSystem);
-
-    updateDiagnosis(transaction);
-
-    updateRecommendation(transaction);
-
-    clearQA();
-
 }
-
 
 /* =========================================================
    5. TRANSACTION INFORMATION
